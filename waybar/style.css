@@ -1,0 +1,178 @@
+* {
+    font-family: 'CaskaydiaMono Nerd Font Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
+    font-size: 16px;
+}
+
+#tags {
+    margin: 0 4px;
+    padding: 0 4px;
+    border-radius: 4px;
+    background-color: #1e1e2e;
+    font-size: 14px;
+}
+
+#tags button {
+    margin: 4px 0;
+    padding: 0 6px;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #6c7086;
+    min-width: 20px;
+}
+
+#tags button.focused {
+    color: #cba6f7;
+    background-color: #313244;
+}
+
+#tags button.occupied {
+    color: #cba6f7;
+}
+
+#tags button.urgent {
+    color: #f38ba8;
+}
+
+#tags button:hover {
+    background-color: #313244;
+    color: #cba6f7;
+}
+
+#tray {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+    color: #cdd6f4;
+}
+
+#custom-stats {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+    color: #cdd6f4;
+}
+
+#cpu {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+    color: #cdd6f4;
+}
+
+#memory {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+    color: #cdd6f4;
+}
+
+#disk {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+    color: #cdd6f4;
+}
+
+#custom-notifications {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+    color: #cdd6f4;
+}
+
+#custom-notifications.notification {
+    color: #cba6f7;
+}
+
+#custom-notifications.none {
+    color: #cdd6f4;
+}
+
+#custom-notifications.dnd {
+    color: #f38ba8;
+}
+
+#custom-notifications.critical {
+    color: #f38ba8;
+}
+
+#network {
+    margin: 0 3px;
+    padding: 0 5px;
+    background-color: #1e1e2e;
+    font-size: 100%;
+}
+
+#network.wifi {
+    color: #cba6f7;
+}
+
+#network.ethernet {
+    color: #a6e3a1;
+}
+
+#network.disconnected {
+    color: #f38ba8;}
+
+#custom-volume {
+    margin: 0 3px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background-color: #1e1e2e;
+    transition: all 0.3s ease;
+}
+
+#custom-volume.high { color: #cba6f7; }
+#custom-volume.medium { color: #a6e3a1; }
+#custom-volume.low { color: #f9e2af; }
+#custom-volume.muted { color: #f38ba8; }
+
+#custom-brightness {
+    margin: 0 3px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background-color: #1e1e2e;
+    transition: color 0.3s ease;
+}
+
+#custom-brightness.high { color: #cba6f7; }
+#custom-brightness.medium { color: #a6e3a1; }
+#custom-brightness.low { color: #f38ba8; }
+
+#battery {
+    margin: 0 3px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+}
+
+#battery.charging {
+    color: #a6e3a1;
+}
+
+#battery.plugged {
+    color: #cba6f7;
+}
+
+#battery.warning {
+    color: #fab387;
+}
+
+#battery.critical {
+    color: #f38ba8;
+}
+
+#custom-powermenu {
+    margin: 0 3px;
+    padding: 0 4px;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+}

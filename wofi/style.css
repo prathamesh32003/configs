@@ -1,0 +1,52 @@
+window {
+    margin: 0px;
+    border: 1px solid #cba6f7; /* Mauve */
+    background-color: #1e1e2e; /* Base */
+}
+
+#input {
+    margin: 5px;
+    border: none;
+    color: #cdd6f4; /* Text */
+    background-color: #1e1e2e; /* Base */
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: #1e1e2e; /* Base */
+}
+
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: #1e1e2e; /* Base */
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 5px;
+    border: none;
+    color: #cdd6f4; /* Text */
+} 
+
+#entry.activatable #text {
+    color: #1e1e2e; /* Base */
+}
+
+#entry > * {
+    color: #cdd6f4; /* Text */
+}
+
+#entry:selected {
+    background-color: #cba6f7; /* Mauve */
+}
+
+#entry:selected #text {
+    font-weight: bold;
+    color: #1e1e2e; /* Base (for contrast with mauve background) */
+}

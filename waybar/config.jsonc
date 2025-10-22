@@ -1,0 +1,122 @@
+{
+    "spacing": 4, // Gaps between modules (4px)
+    "modules-left": [
+        "river/tags",
+        "custom/bongocat",
+    ],
+    "modules-center": [
+        "clock",
+    ],
+    "modules-right": [
+        "tray",
+        "group/hardware",
+        "custom/notifications",
+        "network",
+        "custom/volume",
+        "custom/brightness",
+        "battery",
+        "custom/powermenu",
+    ],
+    "custom/bongocat": {
+        "exec": "bongocat -c '/home/knight/.config/bongocat/bongocat.conf'  > /dev/null 2>&1 &",
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%A, %B %d, %Y}",
+        "tooltip-format": "{:%A, %B %d, %Y}",
+        "interval": 60,
+        "timezone": "Asia/Kolkata",
+    },
+    "tray": {
+        "spacing": 12,
+    },
+    "group/hardware": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 500,
+            "transition-left-to-right": false,
+        },
+        "modules": [
+            "custom/stats",
+            "cpu",
+            "memory",
+            "disk",
+        ],
+    },
+    "custom/stats": {
+        "format": "<span size='large'>󰄩</span>",
+    },
+    "cpu": {
+        "interval": 2,
+        "format": " {}%",
+    },
+    "memory": {
+        "interval": 2,
+        "format": "  {}%",
+    },
+    "disk": {
+        "interval": 30,
+        "format": " {percentage_used}%",
+        "path": "/",
+    },
+    "custom/notifications": {
+        "format": "<span size='large'>{icon}</span>",
+        "font-size": "16",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂚",
+            "dnd": "󰂛",
+            "critical": "󰗼"
+        },
+        "return-type": "json",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true,
+        "restart-interval": 30
+    },
+    "network": {
+        "interval": 5,
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 Wired",
+        "format-disconnected": "󰖪 Offline",
+        "tooltip-format": "{ifname}\n {bandwidthUpBytes}  {bandwidthDownBytes}",
+        "on-click": "foot nmtui"
+    },
+    "custom/volume": {
+        "exec": "/home/knight/.config/waybar/scripts/volume.sh",
+        "return-type": "json",
+        "interval": 1,
+        "tooltip": false,
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5"
+    },
+    "custom/brightness": {
+        "exec": "/home/knight/.config/waybar/scripts/brightness.sh",
+        "return-type": "json",
+        "interval": 1,
+        "format": "󰃠 {percentage}%",
+        "tooltip": false,
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl set 1%-"
+    },
+    "battery": {
+        "interval": 30,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip": false,
+    },
+    "custom/powermenu": {
+        "format": "<span size='large'></span>",
+        "on-click": "/home/knight/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false,
+    }
+}

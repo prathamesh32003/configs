@@ -1,0 +1,24 @@
+# General
+show=run
+prompt=Search...
+insensitive=true
+allow_images=true
+width=30%
+height=30%
+location=center
+orientation=vertical
+lines=10
+columns=1
+term=foot
+hide_scroll=true
+allow_markup=false
+
+# Colors (Catppuccin Mocha Mauve)
+background_color=#1e1e2e              # Base
+border_color=#6c7086                   # Overlay0 (Unfocused border)
+border_color_active=#cba6f7            # Mauve (Focused border)
+text_color=#cdd6f4                     # Text
+selected_text_color=#1e1e2e            # Base (for contrast)
+selected_background_color=#cba6f7      # Mauve
+active_background_color=#1e1e2e        # Base
+active_text_color=#cba6f7              # Mauve
