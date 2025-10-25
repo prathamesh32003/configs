@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Get volume information
+volume=$(pamixer --get-volume-human)
+
+# Check if muted
+if [ "$volume" = "muted" ]; then
+    icon="󰖁"  # Muted
+    printf "%s Muted\n" "$icon"
+    exit 0
+fi
+
+# Remove % sign and convert to number
+volume_level=$(echo "$volume" | sed 's/%//g')
+
+# Define volume thresholds
+low_level=50
+
+# Select icon based on volume level
+if [ "$volume_level" -eq 0 ]; then
+    icon=""  # Volume 0%
+elif [ "$volume_level" -le "$low_level" ]; then
+    icon=""  # Volume low
+else
+    icon=""  # Volume medium
+fi
+
+printf "%s %s%%\n" "$icon" "$volume_level"

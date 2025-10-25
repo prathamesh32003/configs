@@ -1,0 +1,5 @@
+#!/bin/bash
+date=$(date "+%d-%b-%g")
+icon=""
+
+printf "%s %s" "$icon" "$date"

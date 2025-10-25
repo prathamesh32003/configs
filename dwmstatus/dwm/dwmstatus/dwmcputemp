@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cpu_temp=$(sensors | grep Tctl | awk '{print $2}' | sed 's/[+°C]//g')
+
+low_temp=40
+half_temp=60
+full_temp=80
+
+if [ $(echo "$cpu_temp < $low_temp" | bc) -eq 1 ]; then
+    icon=""  # nf-md-snowflake
+elif [ $(echo "$cpu_temp < $half_temp" | bc) -eq 1 ]; then
+    icon=""  # nf-md-thermometer
+elif [ $(echo "$cpu_temp < $full_temp" | bc) -eq 1 ]; then
+    icon=""  # nf-md-thermometer_high
+else
+    icon="󰔅"  # nf-md-thermometer_alert
+fi
+
+printf "%s %s°C\n" "$icon" "$cpu_temp"

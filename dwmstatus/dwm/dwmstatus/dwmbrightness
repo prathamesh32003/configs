@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Get brightness level
+brightness=$(xbacklight -get)
+
+# Round to nearest integer
+brightness_level=$(printf "%.0f" "$brightness")
+
+# Define brightness thresholds
+low_level=33
+mid_level=66
+
+# Select icon based on brightness level
+if [ "$brightness_level" -eq 0 ]; then
+    icon="󰃞"  # Brightness off
+elif [ "$brightness_level" -le "$low_level" ]; then
+    icon="󰃝"  # Low brightness
+elif [ "$brightness_level" -le "$mid_level" ]; then
+    icon="󰃟"  # Medium brightness
+else
+    icon="󰃠"  # High brightness
+fi
+
+printf "%s %s%%\n" "$icon" "$brightness_level"

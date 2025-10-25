@@ -1,0 +1,5 @@
+#!/bin/bash
+hdd="$(df -h | awk '$1=="/dev/nvme0n1p2" {print $5}')"
+icon=""
+
+printf "%s %s" "$icon" "$hdd"

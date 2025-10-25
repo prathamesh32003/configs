@@ -1,0 +1,5 @@
+#!/bin/bash
+ram="$(free -m | grep Mem | awk '{printf " %d%", $3/$2*100}')"
+icon=""
+
+printf "%s%s" "$icon" "$ram"

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Get battery information
+battery_path="/sys/class/power_supply/BAT1"
+battery_status=$(cat "$battery_path/status")
+battery_capacity=$(cat "$battery_path/capacity")
+
+# Define level thresholds
+low_level=20
+half_level=50
+high_level=80
+
+# Select icon based on capacity and status
+if [ "$battery_status" = "Charging" ]; then
+    if [ $battery_capacity -lt $low_level ]; then
+        icon="󰢜"  # Charging low
+    elif [ $battery_capacity -lt $half_level ]; then
+        icon="󰢞"  # Charging medium
+    elif [ $battery_capacity -lt $high_level ]; then
+        icon="󰢝"  # Charging high
+    else
+        icon="󰢟"  # Charging full/almost full
+    fi
+else
+    # Discharging or Full
+    if [ $battery_capacity -le 10 ]; then
+        icon="󰂃"  # Critical
+    elif [ $battery_capacity -le $low_level ]; then
+        icon="󰁺"  # Low
+    elif [ $battery_capacity -le $half_level ]; then
+        icon="󰁼"  # Medium low
+    elif [ $battery_capacity -le $high_level ]; then
+        icon="󰁾"  # Medium high
+    elif [ $battery_capacity -le 95 ]; then
+        icon="󰂀"  # High
+    else
+        icon="󰁹"  # Full
+    fi
+fi
+
+# Add lightning bolt if charging
+if [ "$battery_status" = "Charging" ]; then
+    printf "⚡ %s%%\n" "$battery_capacity"
+else
+    printf "%s %s%%\n" "$icon" "$battery_capacity"
+fi
