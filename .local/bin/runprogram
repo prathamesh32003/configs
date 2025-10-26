@@ -1,0 +1,15 @@
+#!/bin/bash
+
+selected=$(find /usr/share/applications ~/.local/share/applications -name "*.desktop" 2>/dev/null -exec grep -h "^Name=" {} \; | cut -d= -f2 | sort | dmenu -i -l 15 -p "Launch:")
+
+if [ -n "$selected" ]; then
+    # Find and launch the matching desktop file
+    find /usr/share/applications ~/.local/share/applications -name "*.desktop" 2>/dev/null | while read -r file; do
+        name=$(grep "^Name=" "$file" | head -1 | cut -d= -f2)
+        if [ "$name" = "$selected" ]; then
+            exec_cmd=$(grep "^Exec=" "$file" | head -1 | cut -d= -f2- | sed 's/%[a-zA-Z]//g')
+            nohup $exec_cmd >/dev/null 2>&1 &
+            break
+        fi
+    done
+fi

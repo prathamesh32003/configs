@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "0xProto Nerd Font Mono:size=13:antialias=true:autohint=true";
+static char *font = "0xProto Nerd Font:size=13:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -91,14 +91,49 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 4;
+unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
+static const char *colorname[] = {
+	/* 8 normal colors */
+	"#1e1e2e", /* base     - black   */
+	"#f38ba8", /* red      - red     */
+	"#a6e3a1", /* green    - green   */
+	"#f9e2af", /* yellow   - yellow  */
+	"#89b4fa", /* blue     - blue    */
+	"#cba6f7", /* mauve    - magenta */
+	"#94e2d5", /* teal     - cyan    */
+	"#bac2de", /* subtext1 - white   */
+
+	/* 8 bright colors */
+	"#585b70", /* surface1 - bright black   */
+	"#f38ba8", /* red      - bright red     */
+	"#a6e3a1", /* green    - bright green   */
+	"#f9e2af", /* yellow   - bright yellow  */
+	"#89b4fa", /* blue     - bright blue    */
+	"#cba6f7", /* mauve    - bright magenta */
+	"#94e2d5", /* teal     - bright cyan    */
+	"#a6adc8", /* subtext0 - bright white   */
+
+	[255] = 0,
+
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#cdd6f4", /* default foreground (text) */
+	"#1e1e2e", /* default background (base) */
+	"#f5e0dc", /* cursor color (rosewater) */
+	"#f5e0dc", /* reverse cursor (rosewater) */
+};
+
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
+unsigned int defaultfg = 256;
+unsigned int defaultbg = 257;
+unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 259;
+
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -139,8 +174,11 @@ static uint forcemousemod = ShiftMask;
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
+const unsigned int mousescrollincrement = 3;
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = mousescrollincrement},		0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = mousescrollincrement},		0, /* !alt */ -1 },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
@@ -166,6 +204,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+    { ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
@@ -437,40 +477,3 @@ static char ascii_printable[] =
 	" !\"#$%&'()*+,-./0123456789:;<=>?"
 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
-
-/* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-	/* 8 normal colors */
-	"#45475A",
-	"#F38BA8",
-	"#A6E3A1",
-	"#F9E2AF",
-	"#89B4FA",
-	"#F5C2E7",
-	"#94E2D5",
-	"#BAC2DE",
-
-	/* 8 bright colors */
-	"#585B70",
-	"#F38BA8",
-	"#A6E3A1",
-	"#F9E2AF",
-	"#89B4FA",
-	"#F5C2E7",
-	"#94E2D5",
-	"#A6ADC8",
-
-[256] = "#CDD6F4", /* default foreground colour */
-[257] = "#1E1E2E", /* default background colour */
-[258] = "#F5E0DC", /*575268*/
-
-};
-
-
-/*
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 256;
-unsigned int defaultbg = 257;
-unsigned int defaultcs = 258;
-static unsigned int defaultrcs = 258;
