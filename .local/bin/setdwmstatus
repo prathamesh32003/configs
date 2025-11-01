@@ -5,11 +5,11 @@ while true; do
     date=$(/home/knight/.local/share/dwm/dwmstatus/dwmdate)
     brightness=$(/home/knight/.local/share/dwm/dwmstatus/dwmbrightness)
     volume=$(/home/knight/.local/share/dwm/dwmstatus/dwmvolume)
-    cpu=$(/home/knight/.local/share/dwm/dwmstatus/dwmcputemp)
+    # cpu=$(/home/knight/.local/share/dwm/dwmstatus/dwmcputemp)
     # ram=$(/home/knight/.local/share/dwm/dwmstatus/dwmram)
     # disk=$(/home/knight/.local/share/dwm/dwmstatus/dwmdisk)
     battery=$(/home/knight/.local/share/dwm/dwmstatus/dwmbattery)
 
-    xsetroot -name " $time | $date | $brightness | $volume | $cpu | $battery" &
+    xsetroot -name " $time | $date | $brightness | $volume | $battery" &
     sleep 5
 done

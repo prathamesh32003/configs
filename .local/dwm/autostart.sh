@@ -1,5 +1,7 @@
+feh --randomize --bg-fill /home/knight/Pictures/Wallpapers/ &
 xbacklight -set 50 &
-GTK_THEME=Adwaita-dark Discord --start-minimized &
-GTK_THEME=Adwaita-dark steam -silent &
+Discord --start-minimized &
+steam -silent &
+qbittorrent &
 pamixer --set-volume 50 &
 /home/knight/.local/bin/setdwmstatus &
