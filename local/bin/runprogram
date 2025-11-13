@@ -1,0 +1,54 @@
+#!/bin/bash
+
+get_apps() {
+    # System applications
+    find /usr/share/applications -name "*.desktop" -type f 2>/dev/null
+    # User applications
+    find "$HOME/.local/share/applications" -name "*.desktop" -type f 2>/dev/null
+    # System Flatpak applications
+    find /var/lib/flatpak/exports/share/applications -name "*.desktop" 2>/dev/null 2>/dev/null
+    # User Flatpak applications
+    find "$HOME/.local/share/flatpak/exports/share/applications" -name "*.desktop" -type f 2>/dev/null
+}
+
+parse_desktop_file() {
+    local file="$1"
+    local name=$(grep -E "^Name=" "$file" | head -n1 | cut -d= -f2)
+    local exec=$(grep -E "^Exec=" "$file" | head -n1 | cut -d= -f2-)
+    local nodisplay=$(grep -E "^NoDisplay=" "$file" | head -n1 | cut -d= -f2)
+    local hidden=$(grep -E "^Hidden=" "$file" | head -n1 | cut -d= -f2)
+    
+    # Skip if NoDisplay=true or Hidden=true
+    if [ "$nodisplay" = "true" ] || [ "$hidden" = "true" ]; then
+        return
+    fi
+    
+    if [ -n "$name" ] && [ -n "$exec" ]; then
+        # Clean the exec command
+        clean_exec=$(echo "$exec" | sed -e 's/%[[:alpha:]]//g' -e 's/^"//' -e 's/"$//')
+        echo -e "$name\t$clean_exec"
+    fi
+}
+
+# Generate application list
+app_list=$(get_apps | while read -r file; do
+    parse_desktop_file "$file"
+done | sort -u -t$'\t' -k1,1)
+
+# Show in dmenu (only names)
+selected=$(echo "$app_list" | cut -f1 | dmenu -i -p "Run: ")
+
+if [ -n "$selected" ]; then
+    # Get the command for selected app
+    command=$(echo "$app_list" | grep -P "^$selected\t" | cut -f2- | head -n1)
+    
+    if [ -n "$command" ]; then
+        # Handle Flatpak commands specifically
+        if [[ "$command" == flatpak* ]]; then
+            eval "$command" &
+        else
+            # For regular applications
+            nohup sh -c "$command" >/dev/null 2>&1 &
+        fi
+    fi
+fi

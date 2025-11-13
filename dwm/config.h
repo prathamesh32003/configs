@@ -58,7 +58,7 @@ static const Rule rules[] = {
 	{ "discord",  NULL,	      NULL,		  1 << 5,		   0,	        -1 },
 	{ "steam",	  NULL,	      NULL,		  1 << 4,		   0,	        -1 },
     { "qBittorrent", NULL,    NULL,       1 << 3,          0,           -1 },
-    { "Lutris",   NULL,       NULL,       1 << 4,          0,           -1 },
+    { "obsidian",   NULL,     NULL,       1 << 2,          0,           -1 },
 };
 
 /* layout(s) */
@@ -94,9 +94,10 @@ static const char *brightnessup[] = { "xbacklight", "-inc", "5", NULL };
 static const char *brightnessdown[] = { "xbacklight", "-dec", "5", NULL };
 static const char *volumeup[] = { "pamixer", "-i", "5", NULL };
 static const char *volumedown[] = { "pamixer", "-d", "5", NULL };
-static const char *screenshotclipcmd[] = {"scrot", "-s", "-e", "xclip -selection clipboard -t image/png -i $f", NULL};
-static const char *screenshotcmd[] = { "sh", "-c", "scrot \"$HOME/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png\"", NULL };
+static const char *screenshotclipcmd[] = {"/home/knight/.local/bin/screenshot", "clip", NULL};
+static const char *screenshotcmd[] = {"/home/knight/.local/bin/screenshot", "save", NULL};
 static const char *launchfirefox[] = { "firefox", NULL };
+static const char *launchobsidian[] = { "flatpak", "run", "md.obsidian.Obsidian", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -104,6 +105,7 @@ static const Key keys[] = {
 	{ MODKEY,	                    XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_b,      spawn,          {.v = launchfirefox } },
+	{ MODKEY,                       XK_o,      spawn,          {.v = launchobsidian } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },

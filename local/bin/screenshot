@@ -1,0 +1,11 @@
+#!/bin/bash
+
+case $1 in
+	"clip") 
+		scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
+		;;
+	"save") 
+		timestamp=$(date +%Y-%m-%d_%H-%M-%S)
+  		scrot /home/knight/Pictures/Screenshots/screenshot_$timestamp.png
+		;;
+esac
